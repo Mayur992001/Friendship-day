@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Friendship Day!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="message-header"></h1>
+        <p id="main-message" class="surprise-message"></p>
+        <img src="https://github.com/Mayur992001/Friendship-day/raw/main/Image/2.jpg" alt="Friendship Day" class="image">
+        
+        <!-- Countdown Timer -->
+        <div id="countdown">
+            <h2>Countdown to Friendship Day:</h2>
+            <div id="timer">
+                <span id="days"></span> Days 
+                <span id="hours"></span> Hours 
+                <span id="minutes"></span> Minutes 
+                <span id="seconds"></span> Seconds
+            </div>
+        </div>
+        
+        <button onclick="showModal()">Surprise Message</button>
+        <button onclick="window.location.href='index.html'">Back</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Surprise! 🎁</h2>
+            <p id="modal-message" class="modal-message"></p>
+            <img src="https://github.com/Mayur992001/Friendship-day/raw/main/Image/3.jpg" alt="Surprise Image" class="modal-image">
+        </div>
+    </div>
+
+    <script>
+        const mainMessages = [
+            "You're an amazing friend, and I'm so lucky to have you in my life. Happy Friendship Day! 🎉💖",
+            "Your friendship is a treasure. Thank you for always being there. Have a wonderful Friendship Day! 🌟😊",
+            "To the best friend ever: Wishing you a Friendship Day as fabulous as you are! 🌟🎉💖 May your day be filled with joy, laughter, and endless fun! 🥳✨🎈",
+            "Cheers to the friend who makes every day brighter. Happy Friendship Day! 🎊🌈",
+            "Thank you for being such an incredible friend. Your support means the world to me. Happy Friendship Day! 💕🎈",
+            "Wishing you a Friendship Day filled with laughter, joy, and all the things you love! 🎉😄",
+            "Your friendship is a gift that I cherish every day. Hope your Friendship Day is as wonderful as you are! 🌟💖",
+            "Here's to celebrating you on this special day! Your friendship makes life so much better. Happy Friendship Day! 🌈🎉",
+            "Every moment with you is a treasure. May your Friendship Day be filled with all the happiness you bring to others! 🎁✨"
+        ];
+
+        const modalMessages = [
+            "🌟 You light up my world with your kindness and laughter. Thank you for being an amazing friend and making every day brighter! Happy Friendship Day! 🌟💫",
+            "🎁 Here's a little something to remind you of how special you are. Wishing you all the joy and happiness on this Friendship Day! 🌟🎉",
+            "💖 Your friendship means the world to me. Hope your Friendship Day is filled with as much joy as you bring to my life! 🎊💫",
+            "🎉 Sending you loads of love and warm wishes on this Friendship Day. You make life so much better! 🌟💖",
+            "🎊 May your Friendship Day be filled with all the joy and laughter you bring into my life. You're a true treasure! 🌟😊",
+            "💫 Every moment with you is a celebration. Here's to a Friendship Day that’s as wonderful as you are! 🎁🌟",
+            "🎁 Celebrating the incredible friend you are today and every day. Wishing you endless joy and happiness! 🌈💖",
+            "🌟 Your friendship brings so much light into my life. Hope your Friendship Day is filled with happiness and love! 🎉💫"
+        ];
+
+        function getRandomMessage(messages) {
+            return messages[Math.floor(Math.random() * messages.length)];
+        }
+
+        function updateCountdown() {
+            const countdownDate = new Date('2024-08-03T00:00:00').getTime(); // Set your Friendship Day date here
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = "Friendship Day is here!";
+            }
+        }
+
+        window.onload = function() {
+            const name = localStorage.getItem('friendName');
+            if (name) {
+                document.getElementById('message-header').innerText = `Happy Friendship Day, ${name}!`;
+                document.getElementById('main-message').innerText = getRandomMessage(mainMessages);
+                document.getElementById('modal-message').innerText = getRandomMessage(modalMessages);
+            } else {
+                window.location.href = 'index.html';
+            }
+
+            // Update the countdown every second
+            setInterval(updateCountdown, 1000);
+        };
+
+        function showModal() {
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
